@@ -9,5 +9,7 @@ func vehicleRoutes(superRoute *gin.RouterGroup) {
 	vehicleRouter := superRoute.Group("/vehicle")
 	{
 		vehicleRouter.GET("/", controllers.GetVehicles)
+		vehicleRouter.GET("/:id", controllers.GetVehicle)
+		vehicleRouter.POST("/add", controllers.AddVehicle)
 	}
 }
