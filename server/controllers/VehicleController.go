@@ -128,4 +128,34 @@ func AddVehicle(c *gin.Context) {
 	})
 }
 
+func DeleteVehicle(c *gin.Context) {
 
+	id, err := primitive.ObjectIDFromHex(c.Params.ByName("id"))
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "This id does not exist on Data Base",
+			"details": err,
+		})
+
+		return
+	}
+
+	collection := config.Connection("vehicle")
+	deleteResult, err := collection.DeleteOne(context.TODO(), bson.D{{"_id", id}})
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "Can not delete this vehicle",
+			"details": err,
+		})
+
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "This Vehicle has delete successfully",
+		"result":  deleteResult.DeletedCount,
+	})
+
+}
