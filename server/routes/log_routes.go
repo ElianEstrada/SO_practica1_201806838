@@ -1,10 +1,13 @@
 package routes
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"server/controllers"
+)
 
 func logRoutes(superRouter *gin.RouterGroup) {
 	logRouter := superRouter.Group("log")
 	{
-		logRouter.GET("/", nil)
+		logRouter.POST("/add", controllers.AddLog)
 	}
 }
