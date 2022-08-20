@@ -11,6 +11,7 @@ func vehicleRoutes(superRoute *gin.RouterGroup) {
 		vehicleRouter.GET("/", controllers.GetVehicles)
 		vehicleRouter.GET("/:id", controllers.GetVehicle)
 		vehicleRouter.POST("/add", controllers.AddVehicle)
+		vehicleRouter.PATCH("/update/:id", controllers.UpdateVehicle)
 		vehicleRouter.DELETE("/delete/:id", controllers.DeleteVehicle)
 	}
 }

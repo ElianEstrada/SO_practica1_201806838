@@ -159,3 +159,50 @@ func DeleteVehicle(c *gin.Context) {
 	})
 
 }
+
+func UpdateVehicle(c *gin.Context) {
+
+	id, err := primitive.ObjectIDFromHex(c.Params.ByName("id"))
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "This id does not exist on Data Base",
+			"details": err,
+		})
+
+		return
+	}
+
+	var vehicle models.Vehicle
+
+	if err := c.BindJSON(&vehicle); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "This Body is empty",
+			"details": err,
+		})
+
+		return
+	}
+
+	vehicle.ID = id
+
+	collection := config.Connection("vehicle")
+	updateResult, err := collection.UpdateOne(context.TODO(), bson.D{{"_id", id}}, bson.D{
+		{"$set", vehicle},
+	})
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "Can not be update vehicle",
+			"details": err,
+		})
+
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Vehicle has be update successfully",
+		"result":  updateResult.UpsertedCount,
+	})
+
+}
