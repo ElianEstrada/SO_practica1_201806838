@@ -1,15 +1,19 @@
-import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React, { Fragment } from "react";
+import { Routes, Route } from "react-router-dom";
+import { Home } from "./pages/home";
+import Nav from './components/nav';
 
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/" />
-        <Route exact path="**" />
-      </Switch>
-    </BrowserRouter>
+    <Fragment>
+      <header>
+        <Nav />
+      </header>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+      </Routes>
+    </Fragment>
   )
 }
 

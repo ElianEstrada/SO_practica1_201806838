@@ -1,0 +1,12 @@
+.card {
+    height: 4rem;
+}
+
+.menubar {
+    height: 100%;
+    background-color: var(--gray-500);
+}
+
+.h1_p1 {
+    margin-left: 15rem;
+}
