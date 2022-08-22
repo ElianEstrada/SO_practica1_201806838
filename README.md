@@ -1,7 +1,3 @@
----
-tags: Sopes1, USAC, 2S2022
----
-
 > # Practica 1
 > ### Elian Saúl Estrada Urbina
 > #### 201806838
