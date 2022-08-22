@@ -1,0 +1,45 @@
+version: "3"
+
+services:
+  database:
+    container_name: mongo-sopes
+    restart: always
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data:/data/db
+    networks:
+      - sopes1_network
+
+  backend:
+    container_name: go-server
+    restart: always
+    build: ./server
+    image: elian_estrada/backend_p1_201806838
+    ports:
+      - "4000:4000"
+    depends_on:
+      - database
+    links:
+      - database
+    networks:
+      - sopes1_network
+
+  frontend:
+    container_name: react-client
+    restart: always
+    build: ./client
+    image: elian_estrada/frontend_p1_201806838
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    links:
+      - backend
+    networks:
+      - sopes1_network
+
+networks:
+  sopes1_network:
+    driver: bridge 
